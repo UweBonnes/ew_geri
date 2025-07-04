@@ -451,6 +451,7 @@ def ENC_scurves_scan(smx):
     y = [-1 for i in range(CH_MAX)]
     outfilename = scurve_path + ident + ".data"
     outfile = open(outfilename, "w")
+    dropped = 0
     for channel in range (ch_min, ch_max):
         #print("ch: {:3d}".format(channel))
         outfile.write("ch: {:3d}    ".format(channel))
@@ -467,9 +468,12 @@ def ENC_scurves_scan(smx):
                 adc,enc = fit_dataset_errfc_gaus(len(amplitude_set), amplitude_set, count_map[channel][discriminator],npulses)
                 enc = enc * 349
                 if (MUCHmode == 1): enc = enc*6
-                if (adc > 0 and enc > 0 and discriminator<25 and discriminator>5):
+                if (adc > 0.5 and adc < 250 and enc > 0.5 and discriminator<25 and discriminator>5):
                     enc_ave = enc_ave + enc
                     enc_n = enc_n + 1
+                else:
+                    if (adc <= 0.5 or adc >= 250 and enc <= 0.5):
+                        dropped = dropped + 1
             #print("({:4.2f} {:4.2f})".format(adc, enc), flush = True)
             outfile.write("({:4.2f} {:4.2f})    ".format(adc, enc))
         if (enc_n > 0):
@@ -479,6 +483,8 @@ def ENC_scurves_scan(smx):
         outfile.write("enc: {:4.2f}\n".format(enc_ave))
         y[channel] = enc_ave
     outfile.close()
+    if dropped > 0:
+        print("Dropped %d pairs" % dropped)
 
     #human and gnuplot readable ENC data
     outfilename = scurve_path + ident +".txt"
