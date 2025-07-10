@@ -63,7 +63,6 @@ for se in setup_elements:
     se.characterize_data_phases()
     se.initialize_data_phases()
     se.scan_smx_asics_map()
-
 for se in setup_elements:
     se.synchronize_elink()
     se.hctsp_uplink.set_uplinks_mask()
@@ -83,8 +82,8 @@ while True:
       outfilename =  Env.log_path + "/stat.txt"
       outfile = open(outfilename, "w")
     for smx in smxes:
-      if smx.uplinks[0] != 26:
-        continue
+#      if smx.uplinks[0] != 26:
+#        continue
       reads = smx.reads
       writes = smx.writes
       one_retry = smx.one_retry
@@ -111,6 +110,6 @@ while True:
       #channel_test(smx)
       time_end = time.time()
       print( "Duration: {:.2f}".format(time_end - time_start))
-      input("Press Enter to continue, ^C to exit")
+    input("Press Enter to continue, ^C to exit")
   except KeyboardInterrupt:
     break
