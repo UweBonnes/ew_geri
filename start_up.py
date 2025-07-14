@@ -7,7 +7,7 @@ import importlib
 from PFAD_lib import *
 
 import logging as log
-log.basicConfig(level=log.INFO, format='%(filename)s:%(lineno)d:%(levelname)s: %(message)s')
+log.basicConfig(level=log.WARN, format='%(filename)s:%(lineno)d:%(levelname)s: %(message)s')
 
 g=geri.Geri()
 g.init()
@@ -73,6 +73,9 @@ smxes = []
 for se in setup_elements:
     sxs = smx.smxes_from_setup_element(se)
     smxes.extend(sxs)
+if smxes == []:
+  print("No working uplink found")
+  sys.exit()
 
 while True:
   try:
