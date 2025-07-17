@@ -176,7 +176,7 @@ def set_trim(smx):
     return 0
     
 def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31, ch_min = CH_MIN, ch_max = CH_MAX, SHslowFS = 0):
-    count_map = [[[0 for i1 in range (len(amplitude_set))] for i2 in range(32)] for i3 in range(CH_MAX)]
+    count_map = [[[0 for i1 in range (len(amplitude_set))] for i2 in range(32)] for i3 in range(CH_MAX + 1)]
     bar = progressbar.ProgressBar(maxval = 100, widgets = [progressbar.Bar('=', 'SCURVES SCAN MAP [', ']'), ' ', progressbar.Percentage()])
     bar.start()
 
@@ -210,7 +210,7 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
                 #---reading the counters in each channel / ADC + fast comparator counter
-                for channel in range(ch_start + group, ch_max, ngroups):
+                for channel in range(ch_start + group, ch_max + 1, ngroups):
                     if (channel >= CH_MAX_EXT):
                         break
                     for discriminator in range(ADC_min, ADC_max):
@@ -251,17 +251,16 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                         count_map[channel][31][iamp] = smx.read(channel, 62) #& 0xfff
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
-        bar.finish()
         return (count_map, False)
     except:
-        bar.finish()
         return (count_map, True)
+    bar.finish()
 
 def plot_channels_histo(y,title,file_name, ch_min, ch_max):
     c = TCanvas(title, title, 1800, 800)
     c.cd()
-    h = TH1F(title, title, ch_max - ch_min, ch_min, ch_max)
-    for i in range(ch_max - ch_min):
+    h = TH1F(title, title, ch_max + 1 - ch_min, ch_min, ch_max)
+    for i in range(ch_max - ch_min + 1):
         h.SetBinContent(i + 1, y[i + ch_min])
     h.SetStats(0);
     h.Draw()
@@ -431,9 +430,9 @@ def ENC_scurves_scan(smx):
     #print(count_map)
     ident = "/d%d_a%d" % (smx.downlink, smx.address)
     rootfile = TFile.Open(scurve_path + ident + ".root", "recreate")
-    h_scurve = [ [ TH1F("h_scurve_{}_{}".format(channel,discriminator),"h_scurve_{}_{}".format(channel,discriminator),amplitude_n,0,255) for discriminator in range(32) ] for channel in range(CH_MAX) ]
+    h_scurve = [ [ TH1F("h_scurve_{}_{}".format(channel,discriminator),"h_scurve_{}_{}".format(channel,discriminator),amplitude_n,0,255) for discriminator in range(32) ] for channel in range(CH_MAX + 1) ]
     #Histrogram saving
-    for channel in range (ch_min, ch_max):
+    for channel in range (ch_min, ch_max + 1):
         for discriminator in range(ADC_min, ADC_max):
             if (discriminator==ADC_max):
                 discriminator=31
@@ -443,16 +442,16 @@ def ENC_scurves_scan(smx):
             
     #ENC        
     if (normalization == 1):
-        for channel in range(ch_min, ch_max):
+        for channel in range(ch_min, ch_max + 1):
             for discriminator in range(32): 
                 for i in range(len(count_map[channel][discriminator])):
                     if (count_map[channel][discriminator][i] > npulses):count_map[channel][discriminator][i] = npulses
-    x = [i for i in range(CH_MAX)]
-    y = [-1 for i in range(CH_MAX)]
+    x = [i for i in range(CH_MAX + 1)]
+    y = [-1 for i in range(CH_MAX + 1)]
     outfilename = scurve_path + ident + ".data"
     outfile = open(outfilename, "w")
     dropped = 0
-    for channel in range (ch_min, ch_max):
+    for channel in range (ch_min, ch_max + 1):
         #print("ch: {:3d}".format(channel))
         outfile.write("ch: {:3d}    ".format(channel))
         enc_ave = 0
@@ -489,7 +488,7 @@ def ENC_scurves_scan(smx):
     #human and gnuplot readable ENC data
     outfilename = scurve_path + ident +".txt"
     outfile = open(outfilename, "w")
-    for channel in range (ch_min, ch_max):
+    for channel in range (ch_min, ch_max + 1):
         outfile.write("%d, %d\n" % (channel, int(y[channel] + 0.5)))
     outfile.close()
 
