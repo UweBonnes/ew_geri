@@ -389,7 +389,7 @@ def ENC_scurves_scan(smx):
     ch_min = CH_MIN
     ch_max = CH_MAX			# 130 channels from 0 to 129
     #---number of pulses
-    npulses = 1000
+    npulses = 255
     #---slow shaper
     SHslowFS = 0
     
