@@ -20,6 +20,7 @@ log.basicConfig(level=log.INFO, format='%(filename)s:%(lineno)d - %(message)s')
 CH_MIN = 0
 CH_MAX_EXT = 128
 CH_MAX = 127
+N_CH_TOTAL = 130
 
 def PFAD_configuration_list_of_ASICs():
     nul = 320
@@ -78,11 +79,15 @@ def initialise(smx):
         else:
             # values from smxtester 547744ecaebb7d1
             reg_defaults = [31, 63, 163, 31, 0, 12, 32, 42, 48, 60, 128, 64, 30, 31, 27, 27, 88, 0, 121, 144, 244, 36]
-            for ch in range(0, 128):
+            for ch in range(0, N_CH_TOTAL):
                 smx.write(ch, 63, reg_defaults[19])
                 smx.write(ch, 65, reg_defaults[20])
                 smx.write(ch, 67, reg_defaults[21])
-                # Global DAC settings
+                # Set discriminator DACs to default
+                for i in range(1, 61, 2):
+                    smx.write(ch, i, 128)
+                smx.write(ch, 63, 144)
+            # Global DAC settings
             for i in  range(0, 18):
                 smx.write(130, i, reg_defaults[i])
 
@@ -94,7 +99,7 @@ def initialise(smx):
         # Enable the channel mask
         for reg in range(4, 13):
             smx.write( 192, reg, 0X0) # Channel Mask each column does 10 channels
-            smx.write(192, 13, 0b1100) # Channel Mask <3:0> : 129-126
+        #smx.write(192, 13, 0b1100) # Uncomment to disable unbonded channels
 
         # Reset of counters, fifos, AFE
         smx.write(192, 2, 0b101010) # <1>: channel fifos, <3>: front-end channels
