@@ -425,6 +425,16 @@ def ENC_scurves_scan(smx):
     print("channels:[{} {}]".format(ch_min,ch_max))
     amplitude_set = [amplitude for amplitude in range(amplitude_min, amplitude_max,amplitude_step)]     
     count_map, res = get_scurves_scan_map(smx, npulses, amplitude_set,ADC_min, ADC_max, ch_min, ch_max,SHslowFS)
+    dump = False
+    if dump:
+        for channel in range(ch_max + 1):
+            ident = "%s/d%d_a%d_c%d" % (scurve_path , smx.downlink, smx.address, channel)
+            outfile = open(ident, "w")
+            for iamp in range (len(amplitude_set)):
+                for discriminator in range(0, 32):
+                    outfile.write("%4d, " %  count_map[channel][discriminator][iamp])
+                outfile.write("\n")
+            outfile.close()
     if (res):
         print("Init Chip Group {}  Downlink {}  Uplinks {} failed"
               .format(smx.group, smx.downlink, smx.uplinks))
