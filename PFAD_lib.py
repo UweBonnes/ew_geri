@@ -205,10 +205,12 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                         smx.write(130, 11, 128)
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
+                    time.sleep(0.000003)
                     try:
                         smx.write(130, 11, 0)
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
+                    time.sleep(0.000003)
                 #---reading the counters in each channel / ADC + fast comparator counter
                 for channel in range(ch_start + group, ch_max + 1, ngroups):
                     if (channel >= CH_MAX_EXT):
