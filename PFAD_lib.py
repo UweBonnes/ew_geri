@@ -78,7 +78,8 @@ def initialise(smx):
                     smx.write(130, i, val[smx.group*40+smx.uplinks[0]])
         else:
             # values from smxtester 547744ecaebb7d1
-            reg_defaults = [31, 63, 163, 31, 0, 12, 32, 42, 48, 60, 128, 64, 30, 31, 27, 27, 88, 0, 121, 144, 244, 36]
+            #                0,  1,   2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17,  18
+            reg_defaults = [31, 63, 163, 31,  0, 12, 32, 42, 48, 60, 128, 64, 30, 31, 27, 27, 88,  0, 121, 144, 244, 36]
             for ch in range(0, N_CH_TOTAL):
                 smx.write(ch, 63, reg_defaults[19])
                 smx.write(ch, 65, reg_defaults[20])
