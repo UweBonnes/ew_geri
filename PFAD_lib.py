@@ -391,7 +391,7 @@ def ENC_scurves_scan(smx):
     ch_min = CH_MIN
     ch_max = CH_MAX			# 130 channels from 0 to 129
     #---number of pulses
-    npulses = 255
+    npulses = 200
     #---slow shaper
     SHslowFS = 0
     
@@ -504,7 +504,7 @@ def ENC_scurves_scan(smx):
         outfile.write("%d, %d\n" % (channel, int(y[channel] + 0.5)))
     outfile.close()
 
-    title = "ENC for Downlink %d Address %d" %(smx.downlink, smx.address)
+    title = "ENC for Downlink %d Address %d, %d pulses" %(smx.downlink, smx.address, npulses)
     file_name = scurve_path + ident + ".png"
     ENC_LIMIT = 100000
     enc_limit = ENC_LIMIT
