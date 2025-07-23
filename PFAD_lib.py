@@ -108,7 +108,7 @@ def initialise(smx):
         smx.write(192, 2, 0)       # Releasing this reset
 
         # Global gate to 0
-        smx.write(130, 11, 0x0)  # Enabling the Channels-readout from backend
+        smx.write(130, 11, 0)    # Disable the Channels-readout from backend
         smx.write(192, 27, 0)    # reset status
         smx.write(192, 24, 0)    # reset FIFO almost full counter
         smx.write(192, 30, 0)    # reset event-missed counter
