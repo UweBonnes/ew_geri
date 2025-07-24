@@ -148,7 +148,18 @@ def initialise(smx):
         return False
     except:
         return True
-    
+
+def get_efuse(smx):
+    value = []
+    for i in range(8):
+        smx.write(192, 32, 128 + i)
+        value.append(smx.read(192, 33) & 0xff)
+        smx.write(192, 32, 0)
+    efuse = "%02x%02x%02x%02x%02x%02x%02x%02x" % (
+        value[7], value[6], value[5], value[4],
+        value[3], value[3], value[1], value[0])
+    return efuse
+
 def set_trim(smx):
     ASIC_ul,ASIC_group,ASIC_name,ASIC_position = PFAD_configuration_list_of_ASICs()
     nul = 320        
@@ -443,7 +454,7 @@ def ENC_scurves_scan(smx):
                 outfile.write("\n")
             outfile.close()
     if (res):
-        print("Init Chip Group {}  Downlink {}  Uplinks {} failed"
+        print("Scan Chip Group {}  Downlink {}  Uplinks {} failed"
               .format(smx.group, smx.downlink, smx.uplinks))
         return 
     #print(count_map)

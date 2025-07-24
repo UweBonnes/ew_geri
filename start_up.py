@@ -93,11 +93,10 @@ while True:
       retries = smx.retries
       timeouts = smx.err_timeout
       time_start = time.time()
-      print("\nNow at Group {}  Downlink {}  Uplinks {}"
-            .format(smx.group, smx.downlink, smx.uplinks))
+      print("\nNow at Group {}  Downlink {}  Uplinks {} Efuse {}"
+            .format(smx.group, smx.downlink, smx.uplinks, get_efuse(smx)))
       if initialise(smx):
-        print("Init Chip Group {}  Downlink {}  Uplinks {} failed"
-              .format(smx.group, smx.downlink, smx.uplinks))
+        print("Init failed")
         continue
       #set_trim(smx)
       #trim_calibration(smx)
