@@ -4,7 +4,7 @@ import time
 import Environment as Env
 import geri
 import importlib
-from PFAD_lib import *
+import PFAD_lib
 
 import logging as log
 log.basicConfig(level=log.WARN, format='%(filename)s:%(lineno)d:%(levelname)s: %(message)s')
@@ -80,6 +80,8 @@ if smxes == []:
 while True:
   try:
     importlib.reload(Env)
+    importlib.reload(PFAD_lib)
+    from PFAD_lib import *
     if not os.path.exists(Env.log_path) :
       os.mkdir(Env.log_path)
       outfilename =  Env.log_path + "/stat.txt"
