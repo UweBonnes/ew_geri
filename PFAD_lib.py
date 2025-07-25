@@ -78,19 +78,19 @@ def initialise(smx):
                     smx.write(130, i, val[smx.group*40+smx.uplinks[0]])
         else:
             # values from smxtester 547744ecaebb7d1
-            #                0,  1,   2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17,  18
-            reg_defaults = [31, 63, 163, 31,  0, 12, 32, 42, 48, 60, 128, 64, 30, 31, 27, 27, 88,  0, 121, 144, 244, 36]
+            #                    0,  1,   2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17,  18
+            reg_defaults_130 = [31, 63, 163, 31,  0, 12, 32, 42, 48, 60, 128, 64, 30, 31, 27, 27, 88,  0, 121]
             for ch in range(0, N_CH_TOTAL):
-                smx.write(ch, 63, reg_defaults[19])
-                smx.write(ch, 65, reg_defaults[20])
-                smx.write(ch, 67, reg_defaults[21])
+                smx.write(ch, 63, 144)
+                smx.write(ch, 65, 244)
+                smx.write(ch, 67, 36)
                 # Set discriminator DACs to default
                 for i in range(1, 61, 2):
                     smx.write(ch, i, 128)
                 smx.write(ch, 63, 144)
             # Global DAC settings
             for i in  range(0, 18):
-                smx.write(130, i, reg_defaults[i])
+                smx.write(130, i, reg_defaults_130[i])
 
         enable_TS_in_dummy = False
         enable_TS_MSB_change = False
