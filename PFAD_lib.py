@@ -189,6 +189,7 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
     ngroups = 4
     # Always start cal_grp 0
     ch_start = ch_min - ch_min % ngroups
+    result = False
     try:
         for iamp, amplitude in enumerate(amplitude_set):
             #print("Pulse amplitude:",amplitude)
@@ -224,12 +225,12 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                     for discriminator in range(ADC_min, ADC_max):
                         ADC_counter = 60 - 2 * discriminator
                         try:
-                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter)# & 0xfff
+                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter) & 0xfff
                         except (AckMissed, AckNotReceived):
                             smx.err_timeout = smx.err_timeout + 1
                     #---FAST comparator
                     try:
-                        count_map[channel][31][iamp] = smx.read(channel, 62) #& 0xfff
+                        count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
                 #Channel 128/129 are in unexpected groups!
@@ -238,12 +239,12 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                     for discriminator in range(ADC_min, ADC_max):
                         ADC_counter = 60 - 2 * discriminator
                         try:
-                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter)# & 0xfff
+                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter) & 0xfff
                         except (AckMissed, AckNotReceived):
                             smx.err_timeout = smx.err_timeout + 1
                     #---FAST comparator
                     try:
-                        count_map[channel][31][iamp] = smx.read(channel, 62) #& 0xfff
+                        count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
                 if group == 3 and ch_max >= CH_MAX_EXT:
@@ -251,18 +252,18 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                     for discriminator in range(ADC_min, ADC_max):
                         ADC_counter = 60 - 2 * discriminator
                         try:
-                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter)# & 0xfff
+                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter) & 0xfff
                         except (AckMissed, AckNotReceived):
                             smx.err_timeout = smx.err_timeout + 1
                     #---FAST comparator
                     try:
-                        count_map[channel][31][iamp] = smx.read(channel, 62) #& 0xfff
+                        count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
                     except (AckMissed, AckNotReceived):
                         smx.err_timeout = smx.err_timeout + 1
-        return (count_map, False)
     except:
-        return (count_map, True)
+        result = True
     bar.finish()
+    return (count_map, result)
 
 def plot_channels_histo(y,title,file_name, ch_min, ch_max):
     c = TCanvas(title, title, 1800, 800)
@@ -387,9 +388,9 @@ def ENC_scurves_scan(smx):
     print ("ENC - SCURVES scan")
     time_start = time.time()
     amplitude_min = 0
-    amplitude_max = 255
+    amplitude_max = 127
     amplitude_step = 1
-    amplitude_n = 255
+    amplitude_n = 127
     #---ADC discriminators (31 ADC discriminators/channel)
     ADC_min = 0
     ADC_max = 31			# 31 ADC comparators + 1 FAST comparator
@@ -479,9 +480,10 @@ def ENC_scurves_scan(smx):
             # fit and get ENC[discriminator]; add to enc_ave and increase enc_n
             # count_map[channel][discriminator] vs amplitude_set
             count_sum = sum(count_map[channel][discriminator])
+            count_max = max(count_map[channel][discriminator])
             adc, enc = (0, 0)
             #print(count_map[channel][discriminator], flush = True)
-            if (count_sum > npulses):
+            if (count_max <= npulses and count_sum > npulses):
                 adc,enc = fit_dataset_errfc_gaus(len(amplitude_set), amplitude_set, count_map[channel][discriminator],npulses)
                 enc = enc * 349
                 if (MUCHmode == 1): enc = enc*6
