@@ -107,8 +107,8 @@ while True:
       #if (smx.uplinks[0]==23):  check_trim(smx)
       #fast_ENC(smx)
       ENC_scurves_scan(smx)
-      outfile.write("GBT %d: DL %d, Addr %d, %d R, %d W,  %d/%d Retries(1/m), %d T_OUT\n"
-                    % (port, smx.downlink, smx.address, smx.reads -reads, smx.writes - writes,
+      outfile.write("GBT %d: DL %d, Addr %d, Chip %s: %d R, %d W,  %d/%d Retries(1/m), %d T_OUT\n"
+                    % (port, smx.downlink, smx.address, get_efuse(smx), smx.reads -reads, smx.writes - writes,
                        smx.one_retry - one_retry, smx.retries - retries, smx.err_timeout - timeouts))
       outfile.flush()
       #channel_test(smx)

@@ -542,7 +542,7 @@ def ENC_scurves_scan(smx):
         outfile.write("%d, %d\n" % (channel, int(y[channel] + 0.5)))
     outfile.close()
 
-    title = "ENC for Downlink %d Address %d, %d pulses" %(smx.downlink, smx.address, npulses)
+    title = "ENC for Downlink %d Address %d Chip %s, %d pulses" %(smx.downlink, smx.address, get_efuse(smx), npulses)
     file_name = scurve_path + ident + ".png"
     ENC_LIMIT = 100000
     enc_limit = ENC_LIMIT
