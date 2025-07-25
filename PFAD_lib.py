@@ -201,6 +201,8 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
     # Always start cal_grp 0
     ch_start = ch_min - ch_min % ngroups
     result = False
+    assert_to = 0.000001 # Slow shaper peaks in less than 750 ns
+    deassert_to = 0.000001 + (SHslowFS & 3) * 0.00000075 # Tail of negative pulse edge should be near zero
     for iamp, amplitude in enumerate(amplitude_set):
         #print("Pulse amplitude:",amplitude)
         ibar = iamp / len(amplitude_set) * 100
@@ -222,12 +224,12 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                     smx.write(130, 11, 128)
                 except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
                     smx.err_timeout += 1
-                time.sleep(0.000003)
+                time.sleep(assert_to)
                 try:
                     smx.write(130, 11, 0)
                 except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
                     smx.err_timeout += 1
-                time.sleep(0.000003)
+                time.sleep(deassert_to)
             #---reading the counters in each channel / ADC + fast comparator counter
             for channel in range(ch_start + group, ch_max + 1, ngroups):
                 if (channel >= CH_MAX_EXT):
@@ -243,7 +245,7 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
                     count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
                 except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
                     smx.err_timeout += 1
-            #Channel 128/129 are in unexpected groups!
+            #Read Channel 128/129 groups 3/0!
             if group == 0 and ch_max >= CH_MAX_EXT:
                 channel = CH_MAX_EXT + 1
                 for discriminator in range(ADC_min, ADC_max):
