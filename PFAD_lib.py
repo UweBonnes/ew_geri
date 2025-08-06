@@ -399,8 +399,8 @@ def ENC_scurves_scan(smx):
     time_start = time.time()
     amplitude_min = 0
     amplitude_max = 255
-    amplitude_step = 1
-    amplitude_n = 255
+    amplitude_step = 2
+    amplitude_n = 127
     #---ADC discriminators (31 ADC discriminators/channel)
     ADC_min = 0
     ADC_max = 31			# 31 ADC comparators + 1 FAST comparator
@@ -408,7 +408,7 @@ def ENC_scurves_scan(smx):
     ch_min = CH_MIN
     ch_max = CH_MAX_EXT + 1
     #---number of pulses
-    npulses = 50
+    npulses = 100
     #---slow shaper
     SHslowFS = 0
     
