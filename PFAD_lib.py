@@ -215,63 +215,71 @@ def get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min = 0, ADC_max = 31,
             #---apply the shaping time and group of channels
             group_SHslowFS = ((SHslowFS & 0x3) << 2 | (group & 0x3))
             smx.write(130, 5, group_SHslowFS)
-            #---Reset ADC counters
-            smx.write(192, 2, 32)
-            smx.write(192, 2,  0)
-            #---trigger pulses (npulses)
-            for itmp in range(npulses):
-                try:
-                    smx.write(130, 11, 128)
-                except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
-                    smx.err_timeout += 1
-                time.sleep(assert_to)
-                try:
-                    smx.write(130, 11, 0)
-                except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
-                    smx.err_timeout += 1
-                time.sleep(deassert_to)
-            #---reading the counters in each channel / ADC + fast comparator counter
-            for channel in range(ch_start + group, ch_max + 1, ngroups):
-                if (channel >= CH_MAX_EXT):
-                    break
-                for discriminator in range(ADC_min, ADC_max):
-                    ADC_counter = 60 - 2 * discriminator
+            pulses = npulses
+            split = 2048 # 4 ms for pulses, 2 ms for readout
+            while pulses > 0:
+                if pulses > 2048:
+                    run = 2048
+                else:
+                    run = pulses
+                #---Reset ADC counters
+                smx.write(192, 2, 32)
+                smx.write(192, 2,  0)
+                #---trigger pulses (npulses)
+                for itmp in range(run):
                     try:
-                        count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter)
+                        smx.write(130, 11, 128)
                     except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
                         smx.err_timeout += 1
-                #---FAST comparator
-                try:
-                    count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
-                except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
-                    smx.err_timeout += 1
-            #Read Channel 128/129 groups 3/0!
-            if group == 0 and ch_max >= CH_MAX_EXT:
-                channel = CH_MAX_EXT + 1
-                for discriminator in range(ADC_min, ADC_max):
-                    ADC_counter = 60 - 2 * discriminator
+                    time.sleep(assert_to)
                     try:
-                        count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter) & 0xfff
+                        smx.write(130, 11, 0)
                     except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
                         smx.err_timeout += 1
-                #---FAST comparator
-                try:
-                    count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
-                except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
-                    smx.err_timeout += 1
-            if group == 3 and ch_max >= CH_MAX_EXT:
-                channel = CH_MAX_EXT
-                for discriminator in range(ADC_min, ADC_max):
-                    ADC_counter = 60 - 2 * discriminator
+                    time.sleep(deassert_to)
+                pulses -= run
+                #---reading the counters in each channel / ADC + fast comparator counter
+                for channel in range(ch_start + group, ch_max + 1, ngroups):
+                    if (channel >= CH_MAX_EXT):
+                        break
+                    for discriminator in range(ADC_min, ADC_max):
+                        ADC_counter = 60 - 2 * discriminator
+                        try:
+                            count_map[channel][discriminator][iamp] += smx.read(channel, ADC_counter) & 0xfff
+                        except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
+                            smx.err_timeout += 1
+                    #---FAST comparator
                     try:
-                        count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter) & 0xfff
+                        count_map[channel][31][iamp] += smx.read(channel, 62) & 0xfff
                     except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
                         smx.err_timeout += 1
-                #---FAST comparator
-                try:
-                    count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
-                except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
-                    smx.err_timeout += 1
+                #Read Channel 128/129 groups 3/0!
+                if group == 0 and ch_max >= CH_MAX_EXT:
+                    channel = CH_MAX_EXT + 1
+                    for discriminator in range(ADC_min, ADC_max):
+                        ADC_counter = 60 - 2 * discriminator
+                        try:
+                            count_map[channel][discriminator][iamp] = +smx.read(channel, ADC_counter) & 0xfff
+                        except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
+                            smx.err_timeout += 1
+                    #---FAST comparator
+                    try:
+                        count_map[channel][31][iamp] += smx.read(channel, 62) & 0xfff
+                    except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
+                        smx.err_timeout += 1
+                if group == 3 and ch_max >= CH_MAX_EXT:
+                    channel = CH_MAX_EXT
+                    for discriminator in range(ADC_min, ADC_max):
+                        ADC_counter = 60 - 2 * discriminator
+                        try:
+                            count_map[channel][discriminator][iamp] = smx.read(channel, ADC_counter) & 0xfff
+                        except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
+                            smx.err_timeout += 1
+                    #---FAST comparator
+                    try:
+                        count_map[channel][31][iamp] = smx.read(channel, 62) & 0xfff
+                    except (ack_monitor.AckMissed, ack_monitor.AckNotReceived):
+                        smx.err_timeout += 1
     bar.finish()
     return (count_map, result)
 
