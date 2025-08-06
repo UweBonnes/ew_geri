@@ -291,7 +291,7 @@ def fit_dataset_errfc_gaus(n,x,y0,maxy):
     #errfc
     max_value = 0
     minx=x[0]
-    maxx=x[len(x)-1]
+    maxx=x[n - 1]
     mean = (minx+maxx)/2
     width = 0
     if(y[0]<0.3*maxy):
@@ -399,9 +399,9 @@ def ENC_scurves_scan(smx):
     print ("ENC - SCURVES scan")
     time_start = time.time()
     amplitude_min = 0
-    amplitude_max = 127
+    amplitude_max = 255
     amplitude_step = 1
-    amplitude_n = 127
+    amplitude_n = 255
     #---ADC discriminators (31 ADC discriminators/channel)
     ADC_min = 0
     ADC_max = 31			# 31 ADC comparators + 1 FAST comparator
@@ -409,7 +409,7 @@ def ENC_scurves_scan(smx):
     ch_min = CH_MIN
     ch_max = CH_MAX			# 130 channels from 0 to 129
     #---number of pulses
-    npulses = 200
+    npulses = 500
     #---slow shaper
     SHslowFS = 0
     
@@ -481,29 +481,49 @@ def ENC_scurves_scan(smx):
     outfilename = scurve_path + ident + ".data"
     outfile = open(outfilename, "w")
     dropped = 0
-    for channel in range (ch_min, ch_max + 1):
+    cutoff = [[0 for i1 in range(ADC_min, ADC_max)] for i2 in range(N_CH_TOTAL)]
+    limit = (npulses / 10) + 1
+    for channel in range (ch_min, ch_max):
         #print("ch: {:3d}".format(channel))
         outfile.write("ch: {:3d}    ".format(channel))
         enc_ave = 0
         enc_n = 0
 
         for discriminator in range(ADC_min, ADC_max):
-            # fit and get ENC[discriminator]; add to enc_ave and increase enc_n
-            # count_map[channel][discriminator] vs amplitude_set
-            count_sum = sum(count_map[channel][discriminator])
-            count_max = max(count_map[channel][discriminator])
-            adc, enc = (0, 0)
-            #print(count_map[channel][discriminator], flush = True)
-            if (count_max <= npulses and count_sum > npulses):
-                adc,enc = fit_dataset_errfc_gaus(len(amplitude_set), amplitude_set, count_map[channel][discriminator],npulses)
-                enc = enc * 349
-                if (MUCHmode == 1): enc = enc*6
-                if (adc > 0.5 and adc < 250 and enc > 0.5 and discriminator<25 and discriminator>5):
-                    enc_ave = enc_ave + enc
-                    enc_n = enc_n + 1
-                else:
-                    if (adc <= 0.5 or adc >= 250 and enc <= 0.5):
-                        dropped = dropped + 1
+            skip = False
+            # skip channels that do not start with 0
+            for i in range(5):
+                if count_map[channel][discriminator][i] > 0:
+                    skip = True
+            if skip:
+                dropped += 1
+                #print("c %d d %d does not start with 0" % (channel, discriminator))
+                continue
+            # for small discriminator values and large pulse, the negative pulse also often gives hits
+            # Scan for the plateau where 10% of npulses are at least npulses high. Use only data
+            # up to the plateau
+            count = 0
+            for i in range(len(amplitude_set)):
+                if count_map[channel][discriminator][i] >= npulses:
+                    count += 1
+                    if count >= limit:
+                        cutoff[channel][discriminator] = i
+                        break
+            #skip discriminators that do not have a plateau
+            if cutoff[channel][discriminator] < limit:
+                dropped += 1
+                #print("c %d d %d does not reach plateau" % (channel, discriminator))
+                continue
+            # Possible f(x) = npulses/2 + n_pulses/2  *erf(x/enc - adc/enc)
+            adc,enc = fit_dataset_errfc_gaus(cutoff[channel][discriminator], amplitude_set, count_map[channel][discriminator],npulses)
+            enc = enc * 349
+            if (MUCHmode == 1): enc = enc*6
+            if (adc > 0.5 and adc < 250 and enc > 0.5):
+                enc_ave = enc_ave + enc
+                enc_n = enc_n + 1
+            else:
+                if (adc <= 0.5 or adc >= 250 and enc <= 0.5):
+                    dropped = dropped + 1
             #print("({:4.2f} {:4.2f})".format(adc, enc), flush = True)
             outfile.write("({:4.2f} {:4.2f})    ".format(adc, enc))
         if (enc_n > 0):
