@@ -445,7 +445,7 @@ def ENC_scurves_scan(smx):
     dump = False
     if dump:
         for channel in range(ch_max + 1):
-            ident = "%s/d%d_a%d_c%d" % (scurve_path , smx.downlink, smx.address, channel)
+            ident = "%sd%d_a%d_c%d" % (scurve_path , smx.downlink, smx.address, channel)
             outfile = open(ident, "w")
             for iamp in range (len(amplitude_set)):
                 for discriminator in range(0, 32):
@@ -457,7 +457,7 @@ def ENC_scurves_scan(smx):
               .format(smx.group, smx.downlink, smx.uplinks))
         return 
     #print(count_map)
-    ident = "/d%d_a%d" % (smx.downlink, smx.address)
+    ident = "d%d_a%d" % (smx.downlink, smx.address)
     rootfile = TFile.Open(scurve_path + ident + ".root", "recreate")
     h_scurve = [ [ TH1F("h_scurve_{}_{}".format(channel,discriminator),"h_scurve_{}_{}".format(channel,discriminator),amplitude_n,0,255) for discriminator in range(32) ] for channel in range(ch_max + 1) ]
     #Histrogram saving
