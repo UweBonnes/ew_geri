@@ -440,7 +440,7 @@ def ENC_scurves_scan(smx):
                 if (x == 'normalization'): normalization = int(y)
     
     print("channels:[{} {}]".format(ch_min,ch_max))
-    amplitude_set = [amplitude for amplitude in range(amplitude_min, amplitude_max,amplitude_step)]     
+    amplitude_set = [amplitude for amplitude in range(amplitude_min, amplitude_max + 1,amplitude_step)]
     count_map, res = get_scurves_scan_map(smx, npulses, amplitude_set,ADC_min, ADC_max, ch_min, ch_max,SHslowFS)
     dump = False
     if dump:
