@@ -488,6 +488,7 @@ def ENC_scurves_scan(smx):
     outfilename = scurve_path + ident + ".data"
     outfile = open(outfilename, "w")
     dropped = 0
+    total = 0
     cutoff = [[0 for i1 in range(ADC_min, ADC_max)] for i2 in range(ch_min, ch_max + 1)]
     limit = (npulses / 10) + 1
     for channel in range (ch_min, ch_max + 1):
@@ -497,15 +498,13 @@ def ENC_scurves_scan(smx):
         enc_n = 0
 
         for discriminator in range(ADC_min, ADC_max):
+            total += 1
             skip = False
             # skip channels that do not start with 0
             for i in range(5):
                 if count_map[channel][discriminator][i] > 0:
                     skip = True
-            if skip:
-                dropped += 1
-                #print("c %d d %d does not start with 0" % (channel, discriminator))
-                continue
+                    break
             # for small discriminator values and large pulse, the negative pulse also often gives hits
             # Scan for the plateau where 10% of npulses are at least npulses high. Use only data
             # up to the plateau
@@ -517,9 +516,11 @@ def ENC_scurves_scan(smx):
                         cutoff[channel][discriminator] = i
                         break
             #skip discriminators that do not have a plateau
-            if cutoff[channel][discriminator] < limit:
-                dropped += 1
+            if count < limit:
+                skip = True
                 #print("c %d d %d does not reach plateau" % (channel, discriminator))
+            if skip:
+                dropped += 1
                 continue
             # Possible f(x) = npulses/2 + n_pulses/2  *erf(x/enc - adc/enc)
             adc,enc = fit_dataset_errfc_gaus(cutoff[channel][discriminator], amplitude_set, count_map[channel][discriminator],npulses)
@@ -541,7 +542,7 @@ def ENC_scurves_scan(smx):
         y[channel] = enc_ave
     outfile.close()
     if dropped > 0:
-        print("Dropped %d pairs" % dropped)
+        print("Dropped %d of %d" % (dropped, total))
 
     #human and gnuplot readable ENC data
     outfilename = scurve_path + ident +".txt"
