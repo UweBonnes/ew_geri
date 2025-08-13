@@ -549,6 +549,7 @@ def ENC_scurves_scan(smx):
     #human and gnuplot readable ENC data
     outfilename = scurve_path + ident +".txt"
     outfile = open(outfilename, "w")
+    outfile.write("#ENC D %d A %d Chip %s, %d pulses, %s\n" %(smx.downlink, smx.address, get_efuse(smx), npulses, Env.runid))
     for channel in range (ch_min, ch_max + 1):
         outfile.write("%d, %d\n" % (channel, int(y[channel] + 0.5)))
     outfile.close()
