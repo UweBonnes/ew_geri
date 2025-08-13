@@ -367,10 +367,9 @@ def channel_test(smx):
     amplitude_set = [amplitude]    
     count_map = get_scurves_scan_map(smx, npulses, amplitude_set, ADC_min, ADC_max, ch_min, ch_max, SHslowFS)
     
-    runid = time.strftime("%y%m%d_%H%M%S", time.localtime())
     x = [i for i in range(128)]
     y = [-1 for i in range(128)]
-    outfilename = Env.log_path + "PFAD_logging/Channel_test/Channel_test_logging_{}_{}.txt".format(ASIC_name[smx.group*40+smx.uplinks[0]], runid)
+    outfilename = Env.log_path + "PFAD_logging/Channel_test/Channel_test_logging_{}_{}.txt".format(ASIC_name[smx.group*40+smx.uplinks[0]], Env.runid)
     outfile = open(outfilename, "w")
     for channel in range (ch_min, ch_max):
         fired = [0 for i in range(31)]
@@ -551,7 +550,7 @@ def ENC_scurves_scan(smx):
         outfile.write("%d, %d\n" % (channel, int(y[channel] + 0.5)))
     outfile.close()
 
-    title = "ENC for Downlink %d Address %d Chip %s, %d pulses" %(smx.downlink, smx.address, get_efuse(smx), npulses)
+    title = "ENC D %d A %d Chip %s, %d pulses, %s" %(smx.downlink, smx.address, get_efuse(smx), npulses, Env.runid)
     file_name = scurve_path + ident + ".png"
     ENC_LIMIT = 100000
     enc_limit = ENC_LIMIT
