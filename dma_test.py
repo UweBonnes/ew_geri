@@ -15,6 +15,20 @@ log.basicConfig(format='%(filename)s:%(lineno)d - %(message)s')
 g=geri.Geri()
 g.init()
 
+def get_efuse(smx):
+    try:
+        value = []
+        for i in range(8):
+            smx.write(192, 32, 128 + i)
+            value.append(smx.read(192, 33) & 0xff)
+            smx.write(192, 32, 0)
+        efuse = "%02x%02x%02x%02x%02x%02x%02x%02x" % (
+            value[7], value[6], value[5], value[4],
+            value[3], value[3], value[1], value[0])
+        return efuse
+    except:
+        return "Efuse failed"
+
 keep_running = True
 if len(sys.argv) >= 2:
   print("Testing only uplink(s) %d" % int(sys.argv[1]))
@@ -74,7 +88,7 @@ for port in range(agwb.NR_CROB1):
   while keep_running:
     for sx0 in smxes:
       if (len(sys.argv) < 2 or int(sys.argv[1]) == sx0.uplinks[0]) and keep_running:
-        print("Testing downlink %d: " % sx0.uplinks[0], end = "")
+        print("Testing Chip %s Uplink %d: " % (get_efuse(sx0), sx0.uplinks[0]), end = "")
         retries = 10
         n = 0
         old_writes = sx0.writes
