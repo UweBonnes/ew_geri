@@ -150,15 +150,18 @@ def initialise(smx):
         return True
 
 def get_efuse(smx):
-    value = []
-    for i in range(8):
-        smx.write(192, 32, 128 + i)
-        value.append(smx.read(192, 33) & 0xff)
-        smx.write(192, 32, 0)
-    efuse = "%02x%02x%02x%02x%02x%02x%02x%02x" % (
-        value[7], value[6], value[5], value[4],
-        value[3], value[3], value[1], value[0])
-    return efuse
+    try:
+        value = []
+        for i in range(8):
+            smx.write(192, 32, 128 + i)
+            value.append(smx.read(192, 33) & 0xff)
+            smx.write(192, 32, 0)
+        efuse = "%02x%02x%02x%02x%02x%02x%02x%02x" % (
+            value[7], value[6], value[5], value[4],
+            value[3], value[3], value[1], value[0])
+        return efuse
+    except:
+        return "failed"
 
 def set_trim(smx):
     ASIC_ul,ASIC_group,ASIC_name,ASIC_position = PFAD_configuration_list_of_ASICs()
