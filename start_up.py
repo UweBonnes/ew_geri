@@ -87,8 +87,6 @@ while True:
       outfilename =  Env.log_path + "/stat.txt"
       outfile = open(outfilename, "w")
     for smx in smxes:
-#      if smx.uplinks[0] != 26:
-#        continue
       reads = smx.reads
       writes = smx.writes
       one_retry = smx.one_retry

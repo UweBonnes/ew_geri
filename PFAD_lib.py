@@ -79,7 +79,7 @@ def initialise(smx):
         else:
             # values from smxtester 547744ecaebb7d1
             #                    0,  1,   2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17,  18
-            reg_defaults_130 = [31, 63, 163, 31,  0, 12, 32, 42, 48, 60, 128, 64, 30, 31, 27, 27, 88,  0, 121]
+            reg_defaults_130 = [31, 63, 163, 31,  0, 12, 32, 42, 16, 55, 128, 64, 30, 31, 27, 27, 88,  0, 121]
             for ch in range(0, N_CH_TOTAL):
                 smx.write(ch, 63, 144)
                 smx.write(ch, 65, 244)
@@ -418,7 +418,7 @@ def ENC_scurves_scan(smx):
     ch_min = CH_MIN
     ch_max = CH_MAX_EXT + 1
     #---number of pulses
-    npulses = 100
+    npulses = 1000
     #---slow shaper
     SHslowFS = 0
     
@@ -492,7 +492,6 @@ def ENC_scurves_scan(smx):
     dropped = 0
     total = 0
     cutoff = [[0 for i1 in range(ADC_min, ADC_max)] for i2 in range(ch_min, ch_max + 1)]
-    limit = (npulses / 10) + 1
     for channel in range (ch_min, ch_max + 1):
         #print("ch: {:3d}".format(channel))
         outfile.write("ch: {:3d}    ".format(channel))
@@ -504,23 +503,36 @@ def ENC_scurves_scan(smx):
             skip = False
             # skip channels that do not start with 0
             for i in range(5):
-                if count_map[channel][discriminator][i] > 0:
+                # Allow up to 5% chatter at base of S-Curve
+                if count_map[channel][discriminator][i] > npulses*0.05:
+                    outfile.write("(baseline) ")
                     skip = True
                     break
             # for small discriminator values and large pulse, the negative pulse also often gives hits
             # Scan for the plateau where 10% of npulses are at least npulses high. Use only data
             # up to the plateau
             count = 0
+            max = 0
+            limit = 3
             for i in range(len(amplitude_set)):
-                if count_map[channel][discriminator][i] >= npulses:
+                value = count_map[channel][discriminator][i]
+                if value > max:
+                    max = value
+                if value >= npulses:
                     count += 1
                     if count >= limit:
                         cutoff[channel][discriminator] = i
                         break
             #skip discriminators that do not have a plateau
             if count < limit:
-                skip = True
+                outfile.write("(no plateau")
                 #print("c %d d %d does not reach plateau" % (channel, discriminator))
+                # skip curve if 90 % of plateau has not been reached
+                if max < npulses * 0.9:
+                    outfile.write(", too small) ")
+                    skip = True
+                else:
+                    outfile.write(") ")
             if skip:
                 dropped += 1
                 continue
@@ -540,7 +552,8 @@ def ENC_scurves_scan(smx):
             enc_ave = enc_ave / enc_n
         else:
             enc_ave = -1
-        outfile.write("enc: {:4.2f}\n".format(enc_ave))
+        outfile.write("enc: {:4.2f}".format(enc_ave))
+        outfile.write(", n: {:d}\n".format(enc_n))
         y[channel] = enc_ave
     outfile.close()
     if dropped > 0:
