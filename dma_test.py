@@ -67,6 +67,11 @@ for port in range(agwb.NR_CROB1):
       sys.exit()
 
   se=g.scan_setup(port)
+  if se == []:
+      print("Running scan_setup() in tight loop.")
+  while se == [] and keep_running:
+      print(".", end = "",flush = True)
+      se=g.scan_setup(port)
   for s in se:
     print("Characterizing Downlink: {}, Uplinks: {}".format(s.downlink, s.uplinks))
     s.characterize_clock_phase()
