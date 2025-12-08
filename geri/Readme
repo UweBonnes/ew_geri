@@ -1,0 +1,1 @@
+~/devel/openFPGALoader/build/openFPGALoader -b tec0330 -f xxx.bit
