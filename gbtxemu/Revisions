@@ -1,5 +1,10 @@
-v0.1-102-g76c62b9-dirty:
-- For use with STS_FMC Rev0
+v0.1-109-g9bcbddc-dirty:
+- No change to v0.1-107, but built on updated system
+- No need to change gbtxemu related agwb.py, ... files but delivered
+ for completeness
+
 v0.1-107-g942dfc9-dirty:
 - For use with STS_FMC Rev1.0 an STS_FEB11I < Rev 1.0
 - No need to change gbtxemu related agwb.py  __init__.py  top_const.py  top.py
+v0.1-102-g76c62b9-dirty:
+- For use with STS_FMC Rev0
