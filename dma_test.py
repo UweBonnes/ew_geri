@@ -29,123 +29,91 @@ def get_efuse(smx):
     except:
         return "Efuse failed"
 
-keep_running = True
-if len(sys.argv) >= 2:
-  print("Testing only uplink(s) %d" % int(sys.argv[1]))
-for port in range(agwb.NR_CROB1):
-  if not keep_running:
-    sys.exit()
-  print("Testing port %d" % port)
-  try:
-    g.gbtfpga[port].init(attempts=20)
-  except Exception as e:
-    print("Fiber link %d not usable" % port)
-    continue
-  time.sleep(1)
+def portsetup(port):
+    print("Testing port %d" % port)
+    try:
+        g.gbtfpga[port].init(attempts=20)
+    except Exception as e:
+        print("Fiber link %d not usable" % port)
+    time.sleep(0.1)
 
-  print(g.gbtfpga[port].gbtfpga_get_link_status())
+    print(g.gbtfpga[port].gbtfpga_get_link_status())
 
-  for i in range(10):
+    for i in range(10):
     # sometimes the first operation fails...
     # TODO: identify and fix the problem
-    try:
-      ver=g.gbtfpga[port].emu_regs.VER.read()
-      id=g.gbtfpga[port].emu_regs.ID.read()
-      if ver == 0 or id == 0:
-        continue
-      print(f"Port {port} Read GBTxEMU firmware ID: 0x{id:08x} and VER: 0x{ver:08x}")
-      print(f"Success after {i} tries")
-      break
-    except Exception as e:
-      if i < 9:
-        pass
-      else:
-        print("Fiber communication failed\n")
-        sys.exit()
-    else:
-      print("Didn't work!")
-      sys.exit()
-
-  se=g.scan_setup(port)
-  if se == []:
-      print("Running scan_setup() in tight loop.")
-  while se == [] and keep_running:
-      print(".", end = "",flush = True)
-      se=g.scan_setup(port)
-  for s in se:
-    print("Characterizing Downlink: {}, Uplinks: {}".format(s.downlink, s.uplinks))
-    s.characterize_clock_phase()
-    s.initialize_clock_phase()
-    s.characterize_data_phases()
-    s.initialize_data_phases()
-    s.scan_smx_asics_map()
-    for s in se:
-      s.synchronize_elink()
-      s.hctsp_uplink.set_uplinks_mask()
-      s.write_smx_elink_masks()
-
-  import smx
-  smxes = []
-  for s in se:
-    sxs = smx.smxes_from_setup_element(s)
-    smxes.extend(sxs)
-  print("Setup scan results:\n{}".format(se))
-  while keep_running:
-    for sx0 in smxes:
-      if (len(sys.argv) < 2 or int(sys.argv[1]) == sx0.uplinks[0]) and keep_running:
-        print("Testing Chip %s Uplink %d: " % (get_efuse(sx0), sx0.uplinks[0]), end = "")
-        retries = 10
-        n = 0
-        old_writes = sx0.writes
-        old_serror = sx0.one_retry
-        old_merror = sx0.retries
-        while n < retries:
-          try:
-            sx0.refclk_frq=80e6
-            sx0.write(192,3,0xc)
-            sx0.write(192,14,0)
-            sx0.write(192,15,0xff)
-            #Enable test hits
-            sx0.write(192,19,0x3ff)
-            sx0.write(192,18,2)
-            #Configure generation of packet every 0.1 second
-            g.regs.datapath.triv_proc.pkt_duration.write(4000000)
-            #Start DMA
-            g.regs.datapath.triv_proc.ctrl.reset.writef(1)
-            time.sleep(0.1)
-            g.regs.datapath.triv_proc.ctrl.reset.writef(0)
-            time.sleep(0.1)
-            g.regs.datapath.triv_proc.ctrl.run.writef(1)
-            time.sleep(3)
-            #Disble test hits
-            sx0.write(192,15,0)
-            sx0.write(192,3,0)
-            #Stop DMA
-            g.regs.datapath.triv_proc.ctrl.run.writef(0)
-    
-          except Exception as e:
-            print(".", end = "")
-            n = n + 1
-            if n < retries:
-              continue
-            else:
-              print(" Uplink %d failed after %d retries" % (sx0.uplinks[0], n), end = "")
-              n = 0
-          except KeyboardInterrupt:
-            print("User interrupt")
-            keep_running = False
-          break
-        if n > 0:
-          print(" %d retries, %d Writes,  %d/%d retries(once/multiple)" %
-                (n, sx0.writes - old_writes , sx0.one_retry - old_serror,
-                 sx0.retries - old_merror))
+        try:
+            ver=g.gbtfpga[port].emu_regs.VER.read()
+            id=g.gbtfpga[port].emu_regs.ID.read()
+            if ver == 0 or id == 0:
+                continue
+            print(f"Port {port} Read GBTxEMU firmware ID: 0x{id:08x} and VER: 0x{ver:08x}")
+            print(f"Success after {i} tries")
+            break
+        except Exception as e:
+            if i < 9:
+                pass
         else:
-          print("done")
-      #Disable test hits even when not selected
-      try:
-        sx0.write(192,15,0)
-        sx0.write(192,3,0)
-        #Stop DMA
-        g.regs.datapath.triv_proc.ctrl.run.writef(0)
-      except Exception as e:
-        continue
+            print("Fiber communication failed\n")
+            sys.exit()
+
+    se=g.scan_setup(port)
+    if se == []:
+        print("Running scan_setup() in tight loop.")
+        while se == [] and keep_running:
+            print(".", end = "",flush = True)
+            se=g.scan_setup(port)
+    for s in se:
+        print("Characterizing Downlink: {}, Uplinks: {}".format(s.downlink, s.uplinks))
+        s.characterize_clock_phase()
+        s.initialize_clock_phase()
+        s.characterize_data_phases()
+        s.initialize_data_phases()
+        s.scan_smx_asics_map()
+    for s in se:
+        s.synchronize_elink()
+        s.hctsp_uplink.set_uplinks_mask()
+        s.write_smx_elink_masks()
+
+    import smx
+    smxes = []
+    for s in se:
+        sxs = smx.smxes_from_setup_element(s)
+        smxes.extend(sxs)
+    print("Setup scan results:\n{}".format(se))
+    for sx0 in smxes:
+        # enable channel mask, disable dummy and MSB hits
+        sx0.write(192,  3, 1)
+        # disable all channel
+        sx0.write(192,  4, 0x3fff)
+        sx0.write(192,  5, 0x3fff)
+        sx0.write(192,  6, 0x3fff)
+        sx0.write(192,  7, 0x3fff)
+        sx0.write(192,  8, 0x3fff)
+        sx0.write(192,  9, 0x3fff)
+        sx0.write(192, 10, 0x3fff)
+        sx0.write(192, 11, 0x3fff)
+        sx0.write(192, 12, 0x3fff)
+        sx0.write(192, 13, 0x3fff)
+        #disable test mode
+        sx0.write(192, 18, 0)
+        sx0.write(192, 19, 0x300)
+    #Configure generation of packet every 0.1 second
+    g.regs.datapath.triv_proc.pkt_duration.write(4000000)
+    #Start DMA
+    g.regs.datapath.triv_proc.ctrl.reset.writef(1)
+    time.sleep(0.01)
+    g.regs.datapath.triv_proc.ctrl.reset.writef(0)
+    time.sleep(0.01)
+    g.regs.datapath.triv_proc.ctrl.run.writef(1)
+    return smxes
+
+def get_uplink(smxes, link):
+    for sx0 in smxes:
+        for uplink in sx0.uplinks:
+            if link == uplink:
+                return sx0
+    print("no uplink %d" % link)
+
+smxes = portsetup(0)
+sx0 = get_uplink(smxes, 15)
