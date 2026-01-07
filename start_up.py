@@ -77,6 +77,24 @@ if smxes == []:
   print("No working uplink found")
   sys.exit()
 
+for sx0 in smxes:
+  # enable channel mask, disable dummy and MSB hits
+  sx0.write(192,  3, 1)
+  # disable all channel
+  sx0.write(192,  4, 0x3fff)
+  sx0.write(192,  5, 0x3fff)
+  sx0.write(192,  6, 0x3fff)
+  sx0.write(192,  7, 0x3fff)
+  sx0.write(192,  8, 0x3fff)
+  sx0.write(192,  9, 0x3fff)
+  sx0.write(192, 10, 0x3fff)
+  sx0.write(192, 11, 0x3fff)
+  sx0.write(192, 12, 0x3fff)
+  sx0.write(192, 13, 0x3fff)
+  #disable test mode
+  sx0.write(192, 18, 0)
+  sx0.write(192, 19, 0x300)
+
 while True:
   try:
     importlib.reload(Env)
