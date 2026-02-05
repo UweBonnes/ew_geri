@@ -490,7 +490,7 @@ def ENC_scurves_scan(smx, dump):
     outfile = open(outfilename, "w")
     dropped = 0
     total = 0
-    cutoff = [[0 for i1 in range(ADC_min, ADC_max)] for i2 in range(ch_min, ch_max + 1)]
+    cutoff = [[len(amplitude_set) for i1 in range(ADC_min, ADC_max)] for i2 in range(ch_min, ch_max + 1)]
     for channel in range (ch_min, ch_max + 1):
         #print("ch: {:3d}".format(channel))
         outfile.write("ch: {:3d}    ".format(channel))
