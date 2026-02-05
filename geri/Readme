@@ -1,1 +1,1 @@
-~/devel/openFPGALoader/build/openFPGALoader -b tec0330 -f xxx.bit
+~/devel/openFPGALoader/build/openFPGALoader --enable-quad -b tec0330 -f xxx.bit

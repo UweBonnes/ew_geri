@@ -95,41 +95,41 @@ for sx0 in smxes:
   sx0.write(192, 18, 0)
   sx0.write(192, 19, 0x300)
 
-while True:
-  try:
-    importlib.reload(Env)
-    importlib.reload(PFAD_lib)
-    from PFAD_lib import *
-    if not os.path.exists(Env.log_path) :
-      os.mkdir(Env.log_path)
-      outfilename =  Env.log_path + "/stat.txt"
-      outfile = open(outfilename, "w")
-    for smx in smxes:
-      reads = smx.reads
-      writes = smx.writes
-      one_retry = smx.one_retry
-      retries = smx.retries
-      timeouts = smx.err_timeout
-      time_start = time.time()
-      print("\nNow at Group {}  Downlink {}  Uplinks {} Efuse {}"
-            .format(smx.group, smx.downlink, smx.uplinks, get_efuse(smx)))
-      if initialise(smx):
-        print("Init failed")
-        continue
-      #set_trim(smx)
-      #trim_calibration(smx)
-      #if (smx.uplinks[0]==14): read_registers(smx)
-      #if (smx.uplinks[0]==14): read_trim(smx)
-      #if (smx.uplinks[0]==23):  check_trim(smx)
-      #fast_ENC(smx)
-      ENC_scurves_scan(smx)
-      outfile.write("GBT %d: DL %d, Addr %d, Chip %s: %d R, %d W,  %d/%d Retries(1/m), %d T_OUT\n"
-                    % (port, smx.downlink, smx.address, get_efuse(smx), smx.reads -reads, smx.writes - writes,
-                       smx.one_retry - one_retry, smx.retries - retries, smx.err_timeout - timeouts))
-      outfile.flush()
-      #channel_test(smx)
-      time_end = time.time()
-      print( "Duration: {:.2f}".format(time_end - time_start))
-    input("Press Enter to continue, ^C to exit")
-  except KeyboardInterrupt:
-    break
+from PFAD_lib import *
+def ENC_Scan(nr_smx="ALL", dump = False):
+  importlib.reload(Env)
+  importlib.reload(PFAD_lib)
+
+  if not os.path.exists(Env.log_path) :
+    os.mkdir(Env.log_path)
+    outfilename =  Env.log_path + "/stat.txt"
+    outfile = open(outfilename, "w")
+  print("Using %s" % Env.log_path)
+  for smx in smxes:
+    if nr_smx != "ALL" and smx.efuse_str != nr_smx:
+      continue
+    reads = smx.reads
+    writes = smx.writes
+    one_retry = smx.one_retry
+    retries = smx.retries
+    timeouts = smx.err_timeout
+    time_start = time.time()
+    print("\nNow at Group {}  Downlink {}  Uplinks {} Efuse {}"
+          .format(smx.group, smx.downlink, smx.uplinks, get_efuse(smx)))
+    if initialise(smx):
+      print("Init failed")
+      continue
+    #set_trim(smx)
+    #trim_calibration(smx)
+    #if (smx.uplinks[0]==14): read_registers(smx)
+    #if (smx.uplinks[0]==14): read_trim(smx)
+    #if (smx.uplinks[0]==23):  check_trim(smx)
+    #fast_ENC(smx)
+    ENC_scurves_scan(smx, dump)
+    outfile.write("GBT %d: DL %d, Addr %d, Chip %s: %d R, %d W,  %d/%d Retries(1/m), %d T_OUT\n"
+                  % (port, smx.downlink, smx.address, get_efuse(smx), smx.reads -reads, smx.writes - writes,
+                     smx.one_retry - one_retry, smx.retries - retries, smx.err_timeout - timeouts))
+    outfile.flush()
+    #channel_test(smx)
+    time_end = time.time()
+    print( "Duration: {:.2f}".format(time_end - time_start))

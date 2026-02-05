@@ -402,7 +402,7 @@ def channel_test(smx):
     file_name = Env.log_path + "Channel_test/Channel_test_{}_{}.png".format(ASIC_name[smx.group*40+smx.uplinks[0]], runid)
     plot_channels_histo(y, title, file_name)
    
-def ENC_scurves_scan(smx):
+def ENC_scurves_scan(smx, dump):
     """ gives a fast ENC analysis using the first 4 ADC comparators' noise
     """
     print ("ENC - SCURVES scan")
@@ -452,7 +452,6 @@ def ENC_scurves_scan(smx):
     print("channels:[{} {}]".format(ch_min,ch_max))
     amplitude_set = [amplitude for amplitude in range(amplitude_min, amplitude_max + 1,amplitude_step)]
     count_map, res = get_scurves_scan_map(smx, npulses, amplitude_set,ADC_min, ADC_max, ch_min, ch_max,SHslowFS)
-    dump = False
     if dump:
         for channel in range(ch_max + 1):
             ident = "%sd%d_a%d_c%d" % (scurve_path , smx.downlink, smx.address, channel)
