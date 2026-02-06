@@ -94,6 +94,8 @@ for sx0 in smxes:
   #disable test mode
   sx0.write(192, 18, 0)
   sx0.write(192, 19, 0x300)
+  print("\nFound Group {}  Downlink {}  address {} Uplinks {} Efuse {}"
+          .format(sx0.group, sx0.downlink, sx0.address, sx0.uplinks, sx0.efuse_str))
 
 from PFAD_lib import *
 def ENC_Scan(nr_smx="ALL", dump = False):
@@ -115,7 +117,7 @@ def ENC_Scan(nr_smx="ALL", dump = False):
     timeouts = smx.err_timeout
     time_start = time.time()
     print("\nNow at Group {}  Downlink {}  Uplinks {} Efuse {}"
-          .format(smx.group, smx.downlink, smx.uplinks, get_efuse(smx)))
+          .format(smx.group, smx.downlink, smx.uplinks, smx.efuse_str))
     if initialise(smx):
       print("Init failed")
       continue
@@ -127,7 +129,7 @@ def ENC_Scan(nr_smx="ALL", dump = False):
     #fast_ENC(smx)
     ENC_scurves_scan(smx, dump)
     outfile.write("GBT %d: DL %d, Addr %d, Chip %s: %d R, %d W,  %d/%d Retries(1/m), %d T_OUT\n"
-                  % (port, smx.downlink, smx.address, get_efuse(smx), smx.reads -reads, smx.writes - writes,
+                  % (port, smx.downlink, smx.address, smx.efuse_str, smx.reads -reads, smx.writes - writes,
                      smx.one_retry - one_retry, smx.retries - retries, smx.err_timeout - timeouts))
     outfile.flush()
     #channel_test(smx)
