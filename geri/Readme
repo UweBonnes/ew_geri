@@ -1,1 +1,5 @@
-~/devel/openFPGALoader/build/openFPGALoader --enable-quad -b tec0330 -f xxx.bit
+~/devel/openFPGALoader/build/openFPGALoader -b tec0330 -f xxx.bit
+
+Catch DMA data: " ./wzdaq_app_geri_fout 0"
+
+Decode like "xxd -e -g 4 data.bin |less"
