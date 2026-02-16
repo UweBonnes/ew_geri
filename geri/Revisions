@@ -1,3 +1,16 @@
+260216: ikp_master_264_9c4ea6a3_geri_example
+
+Generated data keeps bit 23 of the payload '0' to mark them
+as events.
+Timestamp on Crob7 is only generated when no event was seen for 256 ticks
+Timestamp encoding is:
+   crob_data(7).payload(28 downto 24) <= std_logic_vector(system_timestamp(26 downto 22));
+   crob_data(7).payload(23) <= '0';
+   crob_data(7).payload(22 downto  1) <= std_logic_vector(system_timestamp(21 downto 0));
+   crob_data(7).payload( 0) <= '0';
+
+Bitshift is done to align with bitshift in Xyter Hit data by bit0 = "EM"
+
 260213: von_262_76325e0d_geri_example: 
 
 Example output with timestamp with divisor 6 enabled
