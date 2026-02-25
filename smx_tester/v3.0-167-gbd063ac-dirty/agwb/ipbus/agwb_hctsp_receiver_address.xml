@@ -1,0 +1,40 @@
+<node id="hctsp_receiver">
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="clear_sequence_detectors" address="0x00000002" permission="rw" mask="0x00000001"/>
+  <node id="sequence_detectors_status" address="0x00000003" permission="r">
+    <node id="sos_detected" mask="0x00000001"/>
+    <node id="sos_stable0" mask="0x00000002"/>
+    <node id="sos_stable1" mask="0x00000004"/>
+    <node id="k28_1_detected" mask="0x00000008"/>
+    <node id="k28_1_stable1" mask="0x00000010"/>
+    <node id="eos_detected" mask="0x00000020"/>
+    <node id="eos_stable1" mask="0x00000040"/>
+    <node id="k28_5_detected" mask="0x00000080"/>
+    <node id="k28_5_stable1" mask="0x00000100"/>
+  </node>
+  <node id="errors" address="0x00000004" permission="r">
+    <node id="bitslip_change" mask="0x00000001"/>
+    <node id="code_8b10b" mask="0x00000002"/>
+    <node id="disparity_8b10b" mask="0x00000004"/>
+    <node id="decoding_8b10b" mask="0x00000008"/>
+    <node id="frame" mask="0x00000010"/>
+    <node id="heart_beat" mask="0x00000020"/>
+  </node>
+  <node id="errors_clear_mask" address="0x00000005" permission="rw">
+    <node id="bitslip_change" mask="0x00000001"/>
+    <node id="code_8b10b" mask="0x00000002"/>
+    <node id="disparity_8b10b" mask="0x00000004"/>
+    <node id="decoding_8b10b" mask="0x00000008"/>
+    <node id="frame" mask="0x00000010"/>
+    <node id="heart_beat" mask="0x00000020"/>
+  </node>
+  <node id="errors_alarm_mask" address="0x00000006" permission="rw">
+    <node id="bitslip_change" mask="0x00000001"/>
+    <node id="code_8b10b" mask="0x00000002"/>
+    <node id="disparity_8b10b" mask="0x00000004"/>
+    <node id="decoding_8b10b" mask="0x00000008"/>
+    <node id="frame" mask="0x00000010"/>
+    <node id="heart_beat" mask="0x00000020"/>
+  </node>
+</node>

@@ -1,0 +1,19 @@
+<node id="uraw_ctrl">
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="uraw_uplinks[0]" address="0x00000002" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[1]" address="0x00000003" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[2]" address="0x00000004" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[3]" address="0x00000005" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[4]" address="0x00000006" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[5]" address="0x00000007" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[6]" address="0x00000008" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[7]" address="0x00000009" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[8]" address="0x0000000a" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_uplinks[9]" address="0x0000000b" permission="rw" mask="0x0000007f"/>
+  <node id="uraw_filter_pattern" address="0x0000000c" permission="rw" mask="0x00ffffff"/>
+  <node id="uraw_filter_mask" address="0x0000000d" permission="rw" mask="0x00ffffff"/>
+  <node id="uraw_inhibit_pattern" address="0x0000000e" permission="rw" mask="0x00ffffff"/>
+  <node id="uraw_inhibit_mask" address="0x0000000f" permission="rw" mask="0x00ffffff"/>
+  <node id="uraw_fifo" address="0x00000010" module="file://agwb_uraw_fifo_ctrl_address.xml"/>
+</node>

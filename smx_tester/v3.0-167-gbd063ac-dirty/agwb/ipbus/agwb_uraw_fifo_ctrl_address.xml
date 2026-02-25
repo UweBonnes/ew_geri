@@ -1,0 +1,11 @@
+<node id="uraw_fifo_ctrl">
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="rcv_mac_l32" address="0x00000002" permission="rw"/>
+  <node id="rcv_mac_m16" address="0x00000003" permission="rw" mask="0x0000ffff"/>
+  <node id="rcv_ip" address="0x00000004" permission="rw"/>
+  <node id="dport" address="0x00000005" permission="rw" mask="0x0000ffff"/>
+  <node id="max_words" address="0x00000006" permission="rw" mask="0x000003ff"/>
+  <node id="min_words" address="0x00000007" permission="rw" mask="0x000003ff"/>
+  <node id="flush" address="0x00000008" permission="rw" mask="0x00000001"/>
+</node>

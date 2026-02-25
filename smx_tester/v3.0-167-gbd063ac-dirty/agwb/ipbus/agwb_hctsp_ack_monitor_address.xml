@@ -1,0 +1,16 @@
+<node id="hctsp_ack_monitor">
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="frame" address="0x00000002" permission="r">
+    <node id="missed" mask="0x00000001"/>
+    <node id="uplink_number" mask="0x0000007e"/>
+    <node id="valid" mask="0x00000080"/>
+    <node id="frame" mask="0xffffff00"/>
+  </node>
+  <node id="clear_detected[0]" address="0x00000003" permission="rw"/>
+  <node id="clear_detected[1]" address="0x00000004" permission="rw"/>
+  <node id="detected_0[0]" address="0x00000005" permission="r"/>
+  <node id="detected_0[1]" address="0x00000006" permission="r"/>
+  <node id="detected_1[0]" address="0x00000007" permission="r" mask="0x00000001"/>
+  <node id="detected_1[1]" address="0x00000008" permission="r" mask="0x00000001"/>
+</node>

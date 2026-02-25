@@ -1,0 +1,98 @@
+<node id="top">
+  <node id="uplink_80" address="0x00000c00" module="file://agwb_hctsp_uplink_address.xml"/>
+  <node id="uplink_160" address="0x00000800" module="file://agwb_hctsp_uplink_address.xml"/>
+  <node id="rawfifos[0]" address="0x00000600" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[1]" address="0x00000608" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[2]" address="0x00000610" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[3]" address="0x00000618" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[4]" address="0x00000620" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[5]" address="0x00000628" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[6]" address="0x00000630" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[7]" address="0x00000638" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[8]" address="0x00000640" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[9]" address="0x00000648" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[10]" address="0x00000650" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[11]" address="0x00000658" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[12]" address="0x00000660" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[13]" address="0x00000668" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[14]" address="0x00000670" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[15]" address="0x00000678" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[16]" address="0x00000680" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[17]" address="0x00000688" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[18]" address="0x00000690" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[19]" address="0x00000698" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[20]" address="0x000006a0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[21]" address="0x000006a8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[22]" address="0x000006b0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[23]" address="0x000006b8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[24]" address="0x000006c0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[25]" address="0x000006c8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[26]" address="0x000006d0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[27]" address="0x000006d8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[28]" address="0x000006e0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[29]" address="0x000006e8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[30]" address="0x000006f0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[31]" address="0x000006f8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos[32]" address="0x00000700" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[0]" address="0x00000400" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[1]" address="0x00000408" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[2]" address="0x00000410" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[3]" address="0x00000418" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[4]" address="0x00000420" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[5]" address="0x00000428" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[6]" address="0x00000430" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[7]" address="0x00000438" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[8]" address="0x00000440" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[9]" address="0x00000448" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[10]" address="0x00000450" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[11]" address="0x00000458" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[12]" address="0x00000460" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[13]" address="0x00000468" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[14]" address="0x00000470" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[15]" address="0x00000478" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[16]" address="0x00000480" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[17]" address="0x00000488" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[18]" address="0x00000490" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[19]" address="0x00000498" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[20]" address="0x000004a0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[21]" address="0x000004a8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[22]" address="0x000004b0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[23]" address="0x000004b8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[24]" address="0x000004c0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[25]" address="0x000004c8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[26]" address="0x000004d0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[27]" address="0x000004d8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[28]" address="0x000004e0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[29]" address="0x000004e8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[30]" address="0x000004f0" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[31]" address="0x000004f8" module="file://agwb_rfifo_address.xml"/>
+  <node id="rawfifos_time[32]" address="0x00000500" module="file://agwb_rfifo_address.xml"/>
+  <node id="elinks" address="0x00000380" module="file://agwb_elinks_address.xml"/>
+  <node id="hctsp_master_80" address="0x00000340" module="file://agwb_hctsp_master_address.xml"/>
+  <node id="hctsp_master_160" address="0x00000300" module="file://agwb_hctsp_master_address.xml"/>
+  <node id="uraw_ctrl" address="0x000002e0" module="file://agwb_uraw_ctrl_address.xml"/>
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="rw_test_reg" address="0x00000002" permission="rw"/>
+  <node id="elink_clk_select" address="0x00000003" permission="rw" mask="0x00000003"/>
+  <node id="main_status" address="0x00000004" permission="r">
+    <node id="extjc_lock" mask="0x00000001"/>
+    <node id="extjc_unlock_cnt" mask="0x000001fe"/>
+  </node>
+  <node id="main_ctrl" address="0x00000005" permission="rw">
+    <node id="i2c_sfp_select" mask="0x00000001"/>
+    <node id="use_sw_jc" mask="0x00000002"/>
+    <node id="extjc_unlock_cnt_rst" mask="0x00000004"/>
+    <node id="extjc_hwrst" mask="0x00000008"/>
+  </node>
+  <node id="mac_ls3bytes" address="0x00000006" permission="rw"/>
+  <node id="mac_ms3bytes" address="0x00000007" permission="rw"/>
+  <node id="mac_status" address="0x00000008" permission="r"/>
+  <node id="j1b_ctrl" address="0x00000009" permission="rw">
+    <node id="break_loop" mask="0x00000001"/>
+    <node id="reset" mask="0x00000002"/>
+  </node>
+  <node id="system_timestamp_0" address="0x0000000a" permission="r"/>
+  <node id="system_timestamp_1" address="0x0000000b" permission="r"/>
+  <node id="i2c_master" address="0x000002d8" module="file://../../../agwb/blackboxes/i2c_ctrl.xml"/>
+</node>

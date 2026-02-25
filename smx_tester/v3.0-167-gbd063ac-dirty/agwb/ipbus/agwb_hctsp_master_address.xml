@@ -1,0 +1,20 @@
+<node id="hctsp_master">
+  <node id="time_command_slots[0]" address="0x00000020" module="file://agwb_hctsp_time_command_slot_address.xml"/>
+  <node id="time_command_slots[1]" address="0x00000028" module="file://agwb_hctsp_time_command_slot_address.xml"/>
+  <node id="time_command_slots[2]" address="0x00000030" module="file://agwb_hctsp_time_command_slot_address.xml"/>
+  <node id="time_command_slots[3]" address="0x00000038" module="file://agwb_hctsp_time_command_slot_address.xml"/>
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="fetched_count" address="0x00000002" permission="r"/>
+  <node id="command_cycle_timestamp_0" address="0x00000003" permission="r"/>
+  <node id="command_cycle_timestamp_1" address="0x00000004" permission="r"/>
+  <node id="command_cycle_pause_width" address="0x00000005" permission="rw" mask="0x0000003f"/>
+  <node id="encoding_modes[0]" address="0x00000006" permission="rw" mask="0x00000003"/>
+  <node id="encoding_modes[1]" address="0x00000007" permission="rw" mask="0x00000003"/>
+  <node id="encoding_modes[2]" address="0x00000008" permission="rw" mask="0x00000003"/>
+  <node id="encoding_modes[3]" address="0x00000009" permission="rw" mask="0x00000003"/>
+  <node id="encoding_modes[4]" address="0x0000000a" permission="rw" mask="0x00000003"/>
+  <node id="encoding_modes[5]" address="0x0000000b" permission="rw" mask="0x00000003"/>
+  <node id="special_time_command_slot" address="0x00000018" module="file://agwb_hctsp_time_command_slot_address.xml"/>
+  <node id="software_command_slot" address="0x00000010" module="file://agwb_hctsp_software_command_slot_address.xml"/>
+</node>

@@ -1,0 +1,246 @@
+<node id="elinks">
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="clk_ctrl" address="0x00000002" permission="rw">
+    <node id="output" mask="0x00000007"/>
+    <node id="freq" mask="0x00000018"/>
+    <node id="delay" mask="0x00003fe0"/>
+  </node>
+  <node id="clk_stat" address="0x00000003" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+    <node id="pll_locked" mask="0x00000002"/>
+  </node>
+  <node id="din_ctrl[0]" address="0x00000004" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[1]" address="0x00000005" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[2]" address="0x00000006" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[3]" address="0x00000007" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[4]" address="0x00000008" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[5]" address="0x00000009" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[6]" address="0x0000000a" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[7]" address="0x0000000b" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[8]" address="0x0000000c" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[9]" address="0x0000000d" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[10]" address="0x0000000e" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[11]" address="0x0000000f" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[12]" address="0x00000010" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[13]" address="0x00000011" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[14]" address="0x00000012" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[15]" address="0x00000013" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[16]" address="0x00000014" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[17]" address="0x00000015" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[18]" address="0x00000016" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[19]" address="0x00000017" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[20]" address="0x00000018" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[21]" address="0x00000019" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[22]" address="0x0000001a" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[23]" address="0x0000001b" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[24]" address="0x0000001c" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[25]" address="0x0000001d" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[26]" address="0x0000001e" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[27]" address="0x0000001f" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[28]" address="0x00000020" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[29]" address="0x00000021" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[30]" address="0x00000022" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[31]" address="0x00000023" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_ctrl[32]" address="0x00000024" permission="rw">
+    <node id="delay" mask="0x0000001f"/>
+    <node id="bit_select" mask="0x000000e0"/>
+  </node>
+  <node id="din_stat[0]" address="0x00000025" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[1]" address="0x00000026" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[2]" address="0x00000027" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[3]" address="0x00000028" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[4]" address="0x00000029" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[5]" address="0x0000002a" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[6]" address="0x0000002b" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[7]" address="0x0000002c" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[8]" address="0x0000002d" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[9]" address="0x0000002e" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[10]" address="0x0000002f" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[11]" address="0x00000030" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[12]" address="0x00000031" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[13]" address="0x00000032" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[14]" address="0x00000033" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[15]" address="0x00000034" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[16]" address="0x00000035" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[17]" address="0x00000036" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[18]" address="0x00000037" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[19]" address="0x00000038" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[20]" address="0x00000039" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[21]" address="0x0000003a" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[22]" address="0x0000003b" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[23]" address="0x0000003c" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[24]" address="0x0000003d" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[25]" address="0x0000003e" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[26]" address="0x0000003f" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[27]" address="0x00000040" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[28]" address="0x00000041" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[29]" address="0x00000042" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[30]" address="0x00000043" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[31]" address="0x00000044" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="din_stat[32]" address="0x00000045" permission="r">
+    <node id="delay_ready" mask="0x00000001"/>
+  </node>
+  <node id="downlink_mask" address="0x00000046" permission="rw" mask="0x0000003f"/>
+  <node id="elink_clk_ena" address="0x00000047" permission="rw" mask="0x0000003f"/>
+</node>

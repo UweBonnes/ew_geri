@@ -1,0 +1,26 @@
+<node id="hctsp_time_command_slot">
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="control" address="0x00000002" permission="rw">
+    <node id="chip_address" mask="0x0000000f"/>
+    <node id="downlink_mask" mask="0x0000fff0"/>
+    <node id="group_mask" mask="0x00ff0000"/>
+    <node id="sequence_number" mask="0x0f000000"/>
+  </node>
+  <node id="control_frame[0]" address="0x00000003" permission="rw">
+    <node id="request_type" mask="0x00000003"/>
+    <node id="request_payload" mask="0x0001fffc"/>
+    <node id="crc" mask="0xfffe0000"/>
+  </node>
+  <node id="control_frame[1]" address="0x00000004" permission="rw">
+    <node id="request_type" mask="0x00000003"/>
+    <node id="request_payload" mask="0x0001fffc"/>
+    <node id="crc" mask="0xfffe0000"/>
+  </node>
+  <node id="timestamp" address="0x00000005" permission="rw"/>
+  <node id="period" address="0x00000006" permission="rw"/>
+  <node id="status" address="0x00000007" permission="r">
+    <node id="armed" mask="0x00000001"/>
+    <node id="armed_in_past" mask="0x00000002"/>
+  </node>
+</node>

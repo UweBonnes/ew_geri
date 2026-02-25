@@ -1,0 +1,42 @@
+<node id="hctsp_uplink">
+  <node id="receivers[0]" address="0x00000200" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[1]" address="0x00000208" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[2]" address="0x00000210" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[3]" address="0x00000218" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[4]" address="0x00000220" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[5]" address="0x00000228" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[6]" address="0x00000230" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[7]" address="0x00000238" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[8]" address="0x00000240" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[9]" address="0x00000248" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[10]" address="0x00000250" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[11]" address="0x00000258" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[12]" address="0x00000260" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[13]" address="0x00000268" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[14]" address="0x00000270" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[15]" address="0x00000278" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[16]" address="0x00000280" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[17]" address="0x00000288" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[18]" address="0x00000290" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[19]" address="0x00000298" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[20]" address="0x000002a0" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[21]" address="0x000002a8" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[22]" address="0x000002b0" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[23]" address="0x000002b8" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[24]" address="0x000002c0" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[25]" address="0x000002c8" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[26]" address="0x000002d0" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[27]" address="0x000002d8" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[28]" address="0x000002e0" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[29]" address="0x000002e8" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[30]" address="0x000002f0" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[31]" address="0x000002f8" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="receivers[32]" address="0x00000300" module="file://agwb_hctsp_receiver_address.xml"/>
+  <node id="ack_monitor" address="0x000001f0" module="file://agwb_hctsp_ack_monitor_address.xml"/>
+  <node id="ID" address="0x00000000" permission="r"/>
+  <node id="VER" address="0x00000001" permission="r"/>
+  <node id="uplinks_mask_0" address="0x00000002" permission="rw"/>
+  <node id="uplinks_mask_1" address="0x00000003" permission="rw" mask="0x00000001"/>
+  <node id="strict_mode_0" address="0x00000004" permission="rw"/>
+  <node id="strict_mode_1" address="0x00000005" permission="rw" mask="0x00000001"/>
+</node>
