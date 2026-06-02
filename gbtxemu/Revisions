@@ -1,3 +1,12 @@
+v0.1-110-g1bd02c5-dirty:
+- Use mapping for 25Q4 FEB
+- No need to change gbtxemu related agwb.py
+
+- FMC Status 260602:
+-- #1 was already programmed
+-- #2 fresh programmed
+-- #3 was already programmed
+
 v0.1-109-g9bcbddc-dirty:
 - No change to v0.1-107, but built on updated system
 - No need to change gbtxemu related agwb.py, ... files but delivered
