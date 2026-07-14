@@ -1,0 +1,3 @@
+v3.0-169-g1bd1900-dirty: Compiled with FMC 25Q4 mapping for MGT1
+- No change in the awgb files
+- Message on serial line must be" Target STS6, MGT1, Git v3.0-169-g1bd1900-dirty" 
