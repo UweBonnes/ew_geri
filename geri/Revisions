@@ -1,3 +1,8 @@
+261020: ikp_master_267_bccc3519_geri_example.tgz
+
+- Added Wojciech commit e98fe8063515c46cd88f9efd311fc0523af9e1cd to fix
+  event duplication
+
 260216: ikp_master_264_9c4ea6a3_geri_example
 
 Generated data keeps bit 23 of the payload '0' to mark them
