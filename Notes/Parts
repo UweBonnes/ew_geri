@@ -1,0 +1,24 @@
+Minimum chained needed to timestamp readout
+
+Oderable items:
+- PC
+- GERI Board
+- SFP mezzanine board
+- 2 * SFP adapters
+- 2 * SFP cage
+- Fiber
+- GBTxEMU
+- 4 LEMO cables
+
+Fabricated items:
+- STS-GERI_PLUG
+- PC bracket with 4 Lemos and MML cable
+- O_STS_PULSER
+- Supply cable for GBTxEMU
+- STS_FMC
+- 1-3 * STS_SUPPLY
+- 2-4 Supply cable for O_STS_PULSER  and STS_SUPPLY(s)
+- 0..3 Dummy Lupo pulse termination
+- 1 - 6 50 pin Flat ribbon cable
+- STS_FEB2 and/or STS_FEB3 and/or STS_FEB11I and or STS_FEB11O
+- 1 .. 2 * STS_POGO21 and/or STS_POGO11I and or STS_POGO110

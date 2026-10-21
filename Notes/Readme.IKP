@@ -1,0 +1,16 @@
+==251208===
+Last compiles probably happened with 
+HEAD losgelöst bei ae2460c
+
+FPGA Build for STRASSE
+- Use origin/master from git@git.gsi.de:CREMLIN_DAQ/geri.git
+- Install VITIS Unified .. 2021.2
+- Build with Xilinx
+- Remove /geri/hdl/pcie_dma_hls/hls/dma1/solution1 when changing Xilinx version
+
+Kernel Module:
+Use origin/geri from  https://gitlab.com/WZab/wzdaq_drv
+
+when changing register definitions:
+Check that hdl/design_version/example/agwb_autogen/hdl/trivial_proc_pkg.vhd (?)
+got updated after make_project. Evt removing this file is needed.

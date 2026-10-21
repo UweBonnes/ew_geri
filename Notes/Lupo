@@ -1,0 +1,54 @@
+==260914==
+Implemented earlier: Set bits for generated events to mark them as events
+
+==2501==
+8 pathes for CROB data provided, only 6 GBT links available
+Use unused CROBS.
+Crobs provide 32 bits, 3 bits to encode CROB
+
+
+===Superseeded==
+241214:
+Detach GBT link 7 output to concentrator from GBT link 7
+Provide 4 NIM inputs to Geri via SO-Dimm
+Feed DUMMY hits to Concentrator as default on channel 7
+Count LUPO clocks and reset on external signal
+Sample LUPO and Geri timestamp counter on external signal
+On external trigger feed  both timestamps as 8 channel encoded 16 bit values to the concentrator
+Provide 8 values to ensure immediate transport(?)
+If external signal showing windows of interest is provide, eventually feed DUMMY hits to all GBT link outputs to concentrator outside window of interest.
+
+
+Hints:
+data_from_elinks_80
+rcv_frames
+trivial_proc
+
+ subtype t_uplink_frame  is std_logic_vector(23 downto 0);
+  type    t_uplink_frame_vector is array (natural range <>) of t_uplink_frame;
+
+  type t_rcv_frame is record
+    frame : t_uplink_frame;
+    valid : std_logic;
+  end record t_rcv_frame;
+
+  constant C_RCV_FRAME_INVALID : t_rcv_frame := (valid => '0', frame => (others => '-'));
+
+  type t_rcv_frame_vector is array (natural range <>) of t_rcv_frame;
+  type t_rcv_frame_vector_2d is array (natural range <>) of t_rcv_frame_vector(elinks_per_crob_c-1 downto 0);
+
+
+64bit/40 Mhz Counter is feasable:
+cref40_system_time_r in rtc.vhd
+
+
+Provide one record ts_data of BNET_INPUT_T as input to trivial_proc.vhd.
+Register ts_data at 160 MHz in trivial_proc.vhd to ease timing.
+Insert as crob_data(C_NR_CROB1) into crob_data
+Fill from C_NR_CROB1 + 1 to (2**NR_WIDTH)-1 with empty.
+
+Timestamp_module:
+Update ts_data at 160 Mhz with payload  when ts_event
+or ts_data.valid = 0 and ts_data.payload <= C_PAYLOAD_EMPTY else
+
+

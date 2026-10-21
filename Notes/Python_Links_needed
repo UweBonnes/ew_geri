@@ -1,0 +1,6 @@
+geri/soft/agwb_emu -> Either link to
+ew_geri/gbtxemu/v0.1-102-g76c62b9-dirty/agwb_emu/gbtxemu_sts/
+or
+ew_geri/gbtxemu/v0.1-102-g76c62b9-dirty/agwb_emu/gbtxemu_lintott/
+
+Hand edit agwb/agwb/top_const.py N_HCTSP_UPLINKS for 18 or 28

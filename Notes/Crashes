@@ -1,0 +1,119 @@
+250729:
+Duration: 171.89
+Traceback (most recent call last):
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_geri/start_up.py", line 99, in <module>
+    .format(smx.group, smx.downlink, smx.uplinks, get_efuse(smx)))
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_geri/PFAD_lib.py", line 155, in get_efuse
+    smx.write(192, 32, 128 + i)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/smx.py", line 84, in write
+    return self.ack_monitor.check_write(timeout = 0.0001)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/hctsp/hctsp/ack_monitor.py", line 63, in check_write
+    return self._check(self._check_write, timeout)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/hctsp/hctsp/ack_monitor.py", line 60, in _check
+    raise AckNotReceived
+hctsp.ack_monitor.AckNotReceived: Ack frame not received
+
+
+250722
+Traceback (most recent call last):
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_geri/start_up.py", line 63, in <module>
+    se.characterize_data_phases()
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/hctsp/hctsp/setup_element.py", line 285, in characterize_data_phases
+    self.clock_phase_iterator[
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/geri/geri/geri.py", line 267, in <lambda>
+    return lambda : self.function(self.output, self.elink_clk_mode, x)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 493, in emu_set_downlink_clock
+    self.emu_elinks.set_downlink_clock(downlink, freq, phase)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/elinks/elinks.py", line 84, in set_downlink_clock
+    self.handle.elink_clk_ena.write(clocks_ena)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/agwb_emu/agwb.py", line 299, in write
+    self.x__iface.write(self.x__base, value)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 18, in write
+    self.crob_iface.ic_write(4 * addr, b )
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 406, in ic_write
+    raise Exception("Exc: ic_write addr = {:d} data = {:#x} rx_empty.readf timeout after {:d} retries".format(addr, *data, nb))
+Exception: Exc: ic_write addr = 420 data = 0x22 rx_empty.readf timeout after 0 retries
+
+250722/3 * * * * * * * * *
+master.py:93 - Setting encoding mode K.28.1 for groups [0], downlinks [5]
+Exc: ic_read addr = 336 size = 4 reties 268368 rx_empty flag 1 delta 2.000004
+Traceback (most recent call last):
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_geri/start_up.py", line 63, in <module>
+    se.characterize_data_phases()
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/hctsp/hctsp/setup_element.py", line 282, in characterize_data_phases
+    f(uplink=u)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/geri/geri/geri.py", line 311, in <lambda>
+    return lambda uplink : self.function(uplink=uplink, bit_select=self.lut[x][0], delay=self.lut[x][1])
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 478, in emu_uplink_data_delay_set
+    self.emu_elinks.set_data_delay(uplink, bit_select, delay)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/elinks/elinks.py", line 108, in set_data_delay
+    self.handle.din_ctrl[uplink].bit_select.writef(bit_select)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/agwb_emu/agwb.py", line 125, in writef
+    self.x__iface.write_masked(self.x__base, self.x__bf.mask, value)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 21, in write_masked
+    x = self.read(addr)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 11, in read
+    res = self.crob_iface.ic_read(4 * addr, 4)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 462, in ic_read
+    raise Exception(f"Exc: ic_read addr timeout")
+
+250722 *** 250721
+links.py:31 - Disabling clock on downlink 4
+Traceback (most recent call last):
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_geri/start_up.py", line 57, in <module>
+    setup_elements = g.scan_setup(port)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/geri/geri/geri.py", line 331, in scan_setup
+    self.gbtfpga[port].emu_disable_downlink_clock(d_)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 490, in emu_disable_downlink_clock
+    self.emu_elinks.disable_downlink_clock(downlink)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/elinks/elinks.py", line 37, in disable_downlink_clock
+    self.handle.elink_clk_ena.write(clocks_ena)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/agwb_emu/agwb.py", line 299, in write
+    self.x__iface.write(self.x__base, value)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 18, in write
+    self.crob_iface.ic_write(4 * addr, b )
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 406, in ic_write
+    raise Exception("Exc: ic_write addr = {:d} data = {:#x} rx_empty.readf timeout after {:d} retries".format(addr, *data, nb))
+Exception: Exc: ic_write addr = 420 data = 0x0 rx_empty.readf timeout after 0 retries
+
+250721
+setup_element.py:201 - Reassigning uplinks to uplinks which passed SOS detection
+Exc: ic_read addr = 416 size = 4 reties 284687 rx_empty flag 1 delta 2.000002
+Traceback (most recent call last):
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_geri/start_up.py", line 57, in <module>
+    setup_elements = g.scan_setup(port)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/geri/geri/geri.py", line 331, in scan_setup
+    self.gbtfpga[port].emu_disable_downlink_clock(d_)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 490, in emu_disable_downlink_clock
+    self.emu_elinks.disable_downlink_clock(downlink)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/elinks/elinks.py", line 29, in disable_downlink_clock
+    downlink_mask = self.handle.downlink_mask.read()
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/agwb_emu/agwb.py", line 279, in read
+    return self.x__iface.read(self.x__base)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 11, in read
+    res = self.crob_iface.ic_read(4 * addr, 4)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 462, in ic_read
+    raise Exception(f"Exc: ic_read addr timeout")
+Exception: Exc: ic_read addr timeout
+
+Traceback (most recent call last):
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/ew_strasse/start_up.py", line 55, in <module>
+    se.characterize_data_phases()
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/hctsp/hctsp/setup_element.py", line 282, in characterize_data_phases
+    f(uplink=u)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/geri/geri/geri.py", line 311, in <lambda>
+    return lambda uplink : self.function(uplink=uplink, bit_select=self.lut[x][0], delay=self.lut[x][1])
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 473, in emu_uplink_data_delay_set
+    self.emu_elinks.set_data_delay(uplink, bit_select, delay)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/elinks/elinks.py", line 108, in set_data_delay
+    self.handle.din_ctrl[uplink].bit_select.writef(bit_select)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/agwb_emu/agwb.py", line 125, in writef
+    self.x__iface.write_masked(self.x__base, self.x__bf.mask, value)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 21, in write_masked
+    x = self.read(addr)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/emu_iface.py", line 11, in read
+    res = self.crob_iface.ic_read(4 * addr, 4)
+  File "/home/lintott/hertz/devel/obertelli/geri/soft/gbtx/gbtx/crob.py", line 457, in ic_read
+    raise Exception(f"Exc: ic_read addr = {0:d} size = {1:d} rx_empty.readf {2:d} retries".format(addr, size, nb))
+Exception: Exc: ic_read addr = 0 size = 1 rx_empty.readf 2 retries
+
